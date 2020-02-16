@@ -2,7 +2,7 @@
 totalSlot: 0
 aSlot: 16
 bSlot: 0
-eMessage: .asciiz "Error: Numbers must be between -46340 and +46340 to prevent arithmetic overflow."
+eMessage: .asciiz "Error: Performing this operation would cause arithmetic overflow."
 aMessage: .asciiz "The answer is: "
 .text
 j main
@@ -10,8 +10,8 @@ j main
 main: #loads the numbers for multiplication and tests for arithmetic overflow, negatives or zero.
 lw $s0,aSlot
 lw $s1,bSlot
-bge $s0,46341,error
-bge $s1,46341,error
+bge $s0,65535,error
+bge $s1,65535,error
 blt $s0,0,aNegative
 beq $s0,0,zero
 beq $s1,0,zero
@@ -22,7 +22,7 @@ beq $t1,1,addToTotal
 j loop2
 
 aNegative: #this handles situations where only one number is negative, by swapping it so that the positive number is always halved.
-ble $s0,-46341,error
+ble $s0,-65535,error
 blt $s1,0,bNegative
 lw $s0,bSlot
 lw $s1,aSlot
@@ -39,7 +39,7 @@ bgt $s0,1,loop
 j print
 
 bNegative: #this handles situations where both numbers are negative, by flipping the numbers to positive.
-ble $s1,-46341,error
+ble $s1,-65535,error
 add $t2,$s1,0
 sub $s1,$s1,$t2
 sub $s1,$s1,$t2
