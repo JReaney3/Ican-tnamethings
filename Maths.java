@@ -1,22 +1,24 @@
 import javax.swing.*;
 import java.awt.BorderLayout;
-import java.awt.event;
+import java.awt.event.*;
 
-public class Maths
-{
-    public static void main(String args[])
+public class Maths implements ActionListener
+{   
+    private JFrame a = new JFrame();
+    private JLabel b = new JLabel("Hello.");
+    private JPanel c = new JPanel();
+
+    private JButton Buttons[] = new JButton[4];
+
+    private BorderLayout d = new BorderLayout();
+    
+    public void Maths()
     {
-        JFrame a = new JFrame();
-        JLabel b = new JLabel("Hello.");
-        JPanel c = new JPanel();
-
-        JButton Buttons[] = new JButton[4];
         Buttons[0] = new JButton("<");
         Buttons[1] = new JButton("=");
         Buttons[2] = new JButton(">");
         Buttons[3] = new JButton("Ask me a Question.");
-
-        BorderLayout d = new BorderLayout();
+        
         c.setLayout(d);
 
         a.setSize(300,300);
@@ -36,8 +38,14 @@ public class Maths
 
         a.setTitle("why?");
         a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         a.setVisible(true);
 
-        
+        Buttons[0].addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        System.out.println("Hello.");
     }
 }
